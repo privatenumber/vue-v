@@ -67,7 +67,7 @@ export default {
     },
 
     methods: {
-        // This is in a method instead of a computed property because slots aren't reactive
+        // Can't use computed property because slots aren't reactive
         textNodes() {
             return (this.$slots.default || []).filter(vnode => !vnode.tag);
         }
