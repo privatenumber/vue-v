@@ -1,14 +1,15 @@
 # vue-v [![Latest version](https://badgen.net/npm/v/vue-v)](https://npm.im/vue-v) [![Monthly downloads](https://badgen.net/npm/dm/vue-v)](https://npm.im/vue-v) [![Install size](https://packagephobia.now.sh/badge?p=vue-v)](https://packagephobia.now.sh/result?p=vue-v) [![Bundle size](https://badgen.net/bundlephobia/minzip/vue-v)](https://bundlephobia.com/result?p=vue-v)
 
-Render Vue vNodes in the template:
+Tiny component to render Vue.js vNodes in the template.
 
 ```html
 <v :nodes="vnodes" />
 ```
 
 ## 🙋‍♂️ Why?
-- **🎩 Render vNodes** in your template without converting your component to use a [render function](https://vuejs.org/v2/guide/render-function.html)!
-- **🐥 Tiny** Weights almost nothing: `194 B` minzipped!
+- **🎩 Render vNodes** without converting your component to use a [render function](https://vuejs.org/v2/guide/render-function.html)!
+- **🔥 Declarative API** render multiple vNodes anywhere in your template!
+- **🐥 Tiny** `194 B` minzipped!
 
 ## 🚀 Install
 ```sh
@@ -67,7 +68,7 @@ export default {
     },
 
     methods: {
-        // This is in a method instead of a computed property because slots aren't reactive
+        // Can't use computed property because slots aren't reactive
         textNodes() {
             return (this.$slots.default || []).filter(vnode => !vnode.tag);
         }
