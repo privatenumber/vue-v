@@ -77,9 +77,48 @@ export default {
 </script>
 ```
 
+### How can I add a class, attribute, or event handler to the vNodes?
+
+You can use [vNode Syringe](https://github.com/privatenumber/vue-vnode-syringe) to overwrite attributes, props, and event-listeners.
+
+For example, if you want to overwrite the class, and add a `click` handler:
+
+```vue
+<template>
+    <div>
+        <vnode-syringe
+            class!="overwrite-class"
+            @click="onClick"
+        >
+            <v :nodes="vnodes" />
+        </vnode-syringe>
+    </div>
+</template>
+
+<script>
+import V from 'vue-v';
+import vnodeSyringe from 'vue-vnode-syringe';
+
+export default {
+    components: {
+        V,
+        vnodeSyringe
+    },
+
+    ...,
+
+    methods: {
+        onClick() {
+            ...
+        }
+    }
+};
+</script>
+```
 
 ## 👨‍👩‍👧 Related
-- [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component for Vue.js
+- [vue-proxi](https://github.com/privatenumber/vue-proxi) - 💠 Tiny proxy component
 - [vue-subslot](https://github.com/privatenumber/vue-subslot) - 💍 Pick 'n choose what you want from a slot passed into your Vue component
 - [vue-pseudo-window](https://github.com/privatenumber/vue-pseudo-window) - 🖼 Declaratively interface window/document in your Vue template
 - [vue-vnode-syringe](https://github.com/privatenumber/vue-vnode-syringe) - 🧬Mutate your vNodes with vNode Syringe 💉
+- [vue-frag](https://github.com/privatenumber/vue-frag) - 🤲 Directive to return multiple root elements
