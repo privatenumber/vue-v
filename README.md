@@ -79,14 +79,17 @@ export default {
 
 ### How can I add a class, attribute, or event handler to the vNodes?
 
-You can use [vNode Syringe](https://github.com/privatenumber/vue-vnode-syringe) to overwrite the vNode data and mutate them.
+You can use [vNode Syringe](https://github.com/privatenumber/vue-vnode-syringe) to overwrite attributes, props, and event-listeners.
 
-For example, if you want to overwrite the class:
+For example, if you want to overwrite the class, and add a `click` handler:
 
 ```vue
 <template>
     <div>
-        <vnode-syringe class="overwrite-class">
+        <vnode-syringe
+            class!="overwrite-class"
+            @click="onClick"
+        >
             <v :nodes="vnodes" />
         </vnode-syringe>
     </div>
@@ -102,7 +105,13 @@ export default {
         vnodeSyringe
     },
 
-    ...
+    ...,
+
+    methods: {
+        onClick() {
+            ...
+        }
+    }
 };
 </script>
 ```
