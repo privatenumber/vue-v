@@ -23,8 +23,7 @@
 	"scripts": {
 		"lint": "xo",
 		"test": "jest",
-		"build": "rollup -c --environment NODE_ENV:production",
-		"prepublishOnly": "npm run build"
+		"build": "rollup -c --environment NODE_ENV:production"
 	},
 	"husky": {
 		"hooks": {
