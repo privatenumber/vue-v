@@ -16,14 +16,6 @@ Tiny component to render Vue.js vNodes in the template.
 npm i vue-v
 ```
 
-#### Globally register
-```js
-import Vue from 'vue';
-import V from 'vue-v';
-
-Vue.component('v', V);
-```
-
 ## 👨🏻‍🏫 Basic usage
 
 ```vue
