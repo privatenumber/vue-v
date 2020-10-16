@@ -1,17 +1,16 @@
+import Vue from 'vue/dist/vue.common';
 import V from 'vue-v';
 import {mount} from '@vue/test-utils';
 
 describe('error handling', () => {
 	test('no vnodes', () => {
-		const usage = {
+		const wrapper = mount({
 			template: '<span><v /></span>',
 			components: {
 				V,
 			},
-		};
-
-		const wrapper = mount(usage);
-		expect(wrapper.html()).toBe('<span><!----></span>');
+		});
+		expect(wrapper.html()).toBe('<span></span>');
 	});
 });
 
@@ -24,14 +23,12 @@ describe('rendering', () => {
 			},
 		};
 
-		const usage = {
+		const wrapper = mount({
 			template: '<wrapper><div>Hello world</div></wrapper>',
 			components: {
 				Wrapper,
 			},
-		};
-
-		const wrapper = mount(usage);
+		});
 		expect(wrapper.html()).toBe('<span><div>Hello world</div></span>');
 	});
 
@@ -43,14 +40,12 @@ describe('rendering', () => {
 			},
 		};
 
-		const usage = {
+		const wrapper = mount({
 			template: '<wrapper><div>Hello world</div><div>Goodbye world</div></wrapper>',
 			components: {
 				Wrapper,
 			},
-		};
-
-		const wrapper = mount(usage);
+		});
 		expect(wrapper.html()).toBe('<span><div>Hello world</div><div>Goodbye world</div></span>');
 	});
 
@@ -62,14 +57,61 @@ describe('rendering', () => {
 			},
 		};
 
-		const usage = {
+		const wrapper = mount({
 			template: '<wrapper>Hello world</wrapper>',
 			components: {
 				Wrapper,
 			},
-		};
-
-		const wrapper = mount(usage);
+		});
 		expect(wrapper.html()).toBe('<span>Hello world</span>');
 	});
+});
+
+test('slot stripping', async () => {
+	const Parent = {
+		template: '<div><slot /><transition-group><v :nodes="vnodes" /></transition-group></div>',
+
+		components: {
+			V,
+		},
+
+		data() {
+			return {
+				vnodes: undefined,
+			};
+		},
+
+		provide() {
+			return {
+				api: {
+					setVnodes: vnodes => {
+						this.vnodes = vnodes;
+					},
+				},
+			};
+		},
+	};
+
+	const Child = {
+		inject: ['api'],
+		render(h) {
+			this.api.setVnodes([
+				h('div', {key: 'a'}, ['Hello']),
+				...this.$slots.named,
+			]);
+		},
+	};
+
+	const app = new Vue({
+		template: '<parent><child><div slot="named" key="b">Goodbye</div></child></parent>',
+		components: {
+			Parent,
+			Child,
+		},
+	});
+
+	app.$mount();
+
+	await app.$nextTick();
+	expect(app.$el.innerHTML).toBe('<!----><span><div class="v-enter v-enter-active">Hello</div><div class="v-enter v-enter-active">Goodbye</div></span>');
 });
