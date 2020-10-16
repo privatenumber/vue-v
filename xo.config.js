@@ -4,6 +4,7 @@ module.exports = {
 			'error',
 			'always-multiline',
 		],
+		'import/extensions': 'off',
 	},
 	overrides: [
 		{
