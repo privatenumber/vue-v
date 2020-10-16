@@ -9,7 +9,7 @@ Tiny component to render Vue.js vNodes in the template.
 ## 🙋‍♂️ Why?
 - **🎩 Render vNodes** without converting your component to use a [render function](https://vuejs.org/v2/guide/render-function.html)!
 - **🔥 Declarative API** render multiple vNodes anywhere in your template!
-- **🐥 Tiny** `194 B` minzipped!
+- **🐥 Tiny** `229 B` minzipped!
 
 ## 🚀 Install
 ```sh
