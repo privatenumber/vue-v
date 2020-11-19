@@ -1,0 +1,19 @@
+name: Size Check
+
+on:
+  pull_request:
+    branches: [develop, master, next, next-major, beta, alpha]
+
+jobs:
+  test:
+    name: Size Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Size Check
+      uses: antfu/export-size-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }
