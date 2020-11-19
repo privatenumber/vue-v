@@ -16,4 +16,4 @@ jobs:
     - name: Size Check
       uses: antfu/export-size-action@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }
+        github_token: ${{ secrets.GITHUB_TOKEN }}
