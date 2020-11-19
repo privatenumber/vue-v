@@ -14,6 +14,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Size Check
-      uses: antfu/export-size-action@v1
+      uses: antfu/export-size-action@v1.0.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
