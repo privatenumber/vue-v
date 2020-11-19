@@ -5,7 +5,7 @@ on:
     branches: [develop, master, next, next-major, beta, alpha]
 
 jobs:
-  test:
+  size-check:
     name: Size Check
     runs-on: ubuntu-latest
     timeout-minutes: 10
