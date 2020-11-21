@@ -10,7 +10,7 @@ describe('error handling', () => {
 				V,
 			},
 		});
-		expect(vm.html()).toBe('<span></span>');
+		expect(vm.html()).toBe('<span><!----></span>');
 	});
 });
 
@@ -64,6 +64,23 @@ describe('rendering', () => {
 			},
 		});
 		expect(vm.html()).toBe('<span>Hello world</span>');
+	});
+
+	test('render single vnode', () => {
+		const TestComponent = {
+			template: '<span><v :nodes="$slots.default[0]" /></span>',
+			components: {
+				V,
+			},
+		};
+
+		const vm = mount({
+			template: '<test-component><div>Hello world</div></test-component>',
+			components: {
+				TestComponent,
+			},
+		});
+		expect(vm.html()).toBe('<span><div>Hello world</div></span>');
 	});
 });
 
