@@ -4,66 +4,83 @@ import {mount} from '@vue/test-utils';
 
 describe('error handling', () => {
 	test('no vnodes', () => {
-		const wrapper = mount({
+		const vm = mount({
 			template: '<span><v /></span>',
 			components: {
 				V,
 			},
 		});
-		expect(wrapper.html()).toBe('<span></span>');
+		expect(vm.html()).toBe('<span><!----></span>');
 	});
 });
 
 describe('rendering', () => {
 	test('render single div', () => {
-		const Wrapper = {
+		const TestComponent = {
 			template: '<span><v :nodes="$slots.default" /></span>',
 			components: {
 				V,
 			},
 		};
 
-		const wrapper = mount({
-			template: '<wrapper><div>Hello world</div></wrapper>',
+		const vm = mount({
+			template: '<test-component><div>Hello world</div></test-component>',
 			components: {
-				Wrapper,
+				TestComponent,
 			},
 		});
-		expect(wrapper.html()).toBe('<span><div>Hello world</div></span>');
+		expect(vm.html()).toBe('<span><div>Hello world</div></span>');
 	});
 
 	test('render multiple divs', () => {
-		const Wrapper = {
+		const TestComponent = {
 			template: '<span><v :nodes="$slots.default" /></span>',
 			components: {
 				V,
 			},
 		};
 
-		const wrapper = mount({
-			template: '<wrapper><div>Hello world</div><div>Goodbye world</div></wrapper>',
+		const vm = mount({
+			template: '<test-component><div>Hello world</div><div>Goodbye world</div></test-component>',
 			components: {
-				Wrapper,
+				TestComponent,
 			},
 		});
-		expect(wrapper.html()).toBe('<span><div>Hello world</div><div>Goodbye world</div></span>');
+		expect(vm.html()).toBe('<span><div>Hello world</div><div>Goodbye world</div></span>');
 	});
 
 	test('render text', () => {
-		const Wrapper = {
+		const TestComponent = {
 			template: '<span><v :nodes="$slots.default" /></span>',
 			components: {
 				V,
 			},
 		};
 
-		const wrapper = mount({
-			template: '<wrapper>Hello world</wrapper>',
+		const vm = mount({
+			template: '<test-component>Hello world</test-component>',
 			components: {
-				Wrapper,
+				TestComponent,
 			},
 		});
-		expect(wrapper.html()).toBe('<span>Hello world</span>');
+		expect(vm.html()).toBe('<span>Hello world</span>');
+	});
+
+	test('render single vnode', () => {
+		const TestComponent = {
+			template: '<span><v :nodes="$slots.default[0]" /></span>',
+			components: {
+				V,
+			},
+		};
+
+		const vm = mount({
+			template: '<test-component><div>Hello world</div></test-component>',
+			components: {
+				TestComponent,
+			},
+		});
+		expect(vm.html()).toBe('<span><div>Hello world</div></span>');
 	});
 });
 
